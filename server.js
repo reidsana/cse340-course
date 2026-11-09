@@ -25,22 +25,22 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Home route
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     res.render('home', { title: 'Home' });
 });
 
 // Organizations route
-app.get('/organizations', (req, res) => {
+app.get('/organizations', async (req, res) => {
     res.render('organizations', { title: 'Organizations' });
 });
 
 // Service projects route
-app.get('/projects', (req, res) => {
+app.get('/projects', async (req, res) => {
     res.render('projects', { title: 'Service Projects' });
 });
 
 // Categories route
-app.get('/categories', (req, res) => {
+app.get('/categories', async (req, res) => {
     res.render('categories', { title: 'Categories' });
 });
 
