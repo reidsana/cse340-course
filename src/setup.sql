@@ -17,7 +17,7 @@ INSERT INTO organization (
     name,
     description,
     contact_email,
-    logo_filename
+    logo_filenames
 )
 VALUES
 (
