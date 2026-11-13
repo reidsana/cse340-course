@@ -184,25 +184,108 @@ VALUES
     '2027-01-18'
 );
 
+
 -- ========================================
--- VERIFY DATABASE RECORDS
+-- 5. CREATE CATEGORY TABLE
+-- ========================================
+
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- ========================================
+-- 6. CREATE PROJECT_CATEGORY TABLE
+-- ========================================
+
+CREATE TABLE project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+
+    PRIMARY KEY (project_id, category_id),
+
+    CONSTRAINT fk_project
+        FOREIGN KEY (project_id)
+        REFERENCES service_project(project_id),
+
+    CONSTRAINT fk_category
+        FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+);
+
+-- ========================================
+-- 7. INSERT SAMPLE CATEGORIES
+-- ========================================
+
+INSERT INTO category (category_name)
+VALUES
+    ('Environmental'),
+    ('Education'),
+    ('Community Service'),
+    ('Infrastructure'),
+    ('Food Security');
+
+-- ========================================
+-- 8. ASSOCIATE PROJECTS WITH CATEGORIES
+-- ========================================
+
+INSERT INTO project_category (project_id, category_id)
+VALUES
+-- BrightFuture Builders
+(1, 4),
+(2, 4),
+(3, 3),
+(4, 1),
+(5, 4),
+
+-- GreenHarvest Growers
+(6, 1),
+(6, 3),
+(7, 2),
+(8, 1),
+(9, 5),
+(9, 3),
+(10, 2),
+(10, 1),
+
+-- UnityServe Volunteers
+(11, 3),
+(11, 5),
+(12, 3),
+(13, 2),
+(13, 3),
+(14, 3),
+(15, 3),
+(15, 1);
+
+-- ========================================
+-- 9. VERIFY ORGANIZATIONS
 -- ========================================
 
 SELECT * FROM organization;
 
+-- ========================================
+-- 10. VERIFY SERVICE PROJECTS
+-- ========================================
+
 SELECT * FROM service_project;
 
 -- ========================================
--- VERIFY PROJECTS AND ORGANIZATIONS
+-- 11. VERIFY CATEGORIES
+-- ========================================
+
+SELECT * FROM category;
+
+-- ========================================
+-- 12. VERIFY PROJECT CATEGORIES
 -- ========================================
 
 SELECT
-    p.project_id,
     p.title,
-    o.name AS organization_name,
-    p.location,
-    p.project_date
-FROM service_project p
-JOIN organization o
-    ON p.organization_id = o.organization_id
+    c.category_name
+FROM project_category pc
+JOIN service_project p
+    ON pc.project_id = p.project_id
+JOIN category c
+    ON pc.category_id = c.category_id
 ORDER BY p.project_id;
