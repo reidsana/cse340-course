@@ -1,8 +1,6 @@
-
 import db from './db.js';
 
-// Get all service projects with organization names
-export async function getAllProjects() {
+export const getAllProjects = async () => {
     const sql = `
         SELECT
             p.project_id,
@@ -19,6 +17,5 @@ export async function getAllProjects() {
     `;
 
     const result = await db.query(sql);
-
     return result.rows;
-}
+}; 
