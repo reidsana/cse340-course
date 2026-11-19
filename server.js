@@ -4,7 +4,6 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
-import { getAllProjects } from './src/models/projects.js';
 import { getAllCategories } from './src/models/categories.js';
 import router from './src/routes.js';
 
@@ -48,21 +47,6 @@ app.get('/', async (req, res) => {
     res.render('home', { title: 'Home' });
 });
 
-// Service projects route
-app.get('/projects', async (req, res, next) => {
-    try {
-        const projects = await getAllProjects();
-
-        console.log('Service Projects:', projects);
-
-        res.render('projects', {
-            title: 'Service Projects',
-            projects
-        });
-    } catch (error) {
-        next(error);
-    }
-});
 
 // Categories route
 app.get('/categories', async (req, res, next) => {
