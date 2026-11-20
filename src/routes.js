@@ -10,6 +10,10 @@ import {
     showProjectDetailsPage
 } from './controllers/projects.js';
 
+import {
+    showCategoryDetailsPage
+} from './controllers/categories.js';
+
 const router = express.Router();
 
 // Organizations list
@@ -23,5 +27,8 @@ router.get('/projects', showProjectsPage);
 
 // Service project details
 router.get('/project/:id', showProjectDetailsPage);
+
+// Category details
+router.get('/category/:id', showCategoryDetailsPage);
 
 export default router;

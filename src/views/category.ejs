@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+    <section class="page-hero">
+        <h1>
+            <%= category.category_name %>
+        </h1>
+        <p>Explore service projects in this category.</p>
+    </section>
+
+    <section class="projects-section">
+
+        <% if (projects && projects.length> 0) { %>
+
+            <div class="projects-container">
+
+                <% projects.forEach(project=> { %>
+
+                    <article class="project-card">
+
+                        <h2>
+                            <a href="/project/<%= project.project_id %>">
+                                <%= project.title %>
+                            </a>
+                        </h2>
+
+                        <p>
+                            <strong>Description:</strong>
+                            <%= project.description %>
+                        </p>
+
+                        <p>
+                            <strong>Date:</strong>
+                            <%= new Date(project.project_date).toLocaleDateString( 'en-US' , { timeZone: 'UTC' ,
+                                year: 'numeric' , month: 'long' , day: 'numeric' } ) %>
+                        </p>
+
+                        <p>
+                            <strong>Location:</strong>
+                            <%= project.location %>
+                        </p>
+
+                    </article>
+
+                    <% }); %>
+
+            </div>
+
+            <% } else { %>
+
+                <p>No projects are currently available in this category.</p>
+
+                <% } %>
+
+    </section>
+
+    <%- include('partials/footer') %>
