@@ -1,4 +1,6 @@
 
+import flash from './src/middleware/flash.js';
+import session from 'express-session';
 import 'dotenv/config';
 import express from 'express';
 import { fileURLToPath } from 'url';
@@ -13,6 +15,12 @@ const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'development';
 // Define the port number
 const PORT = process.env.PORT || 3000;
 
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
+if (!SESSION_SECRET) {
+    throw new Error('SESSION_SECRET is missing from the environment variables.');
+}
+
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +31,17 @@ const app = express();
 // Configure EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
+
+// Set up session management
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 }
+}));
+
+// Use flash message middleware
+app.use(flash);
 
 // Middleware to log all incoming requests
 app.use((req, res, next) => {

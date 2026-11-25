@@ -19,6 +19,7 @@ import {
 
 const router = express.Router();
 
+
 // Organizations list
 router.get('/organizations', showOrganizationsPage);
 
