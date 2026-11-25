@@ -38,9 +38,13 @@ app.use((req, res, next) => {
     next();
 });
 
+// Allow Express to receive and process common POST data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Home route
 app.get('/', async (req, res) => {
