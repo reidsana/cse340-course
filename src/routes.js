@@ -13,7 +13,10 @@ import {
 
 import {
     showProjectsPage,
-    showProjectDetailsPage
+    showProjectDetailsPage,
+    showNewProjectForm,
+    processNewProjectForm,
+    projectValidation
 } from './controllers/projects.js';
 
 import {
@@ -54,4 +57,9 @@ router.post(
     processEditOrganizationForm
 );
 
+// Route for new service project page
+router.get('/new-project', showNewProjectForm);
+
+// Route to handle new service project form submission
+router.post('/new-project', projectValidation, processNewProjectForm);
 export default router;
