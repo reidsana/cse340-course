@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+    <section class="page-hero">
+        <h1>
+            <%= title %>
+        </h1>
+        <p>Create a new category for service projects.</p>
+    </section>
+
+    <section class="projects-section">
+        <form action="/new-category" method="POST">
+
+            <div class="form-group">
+                <label for="category_name">Category Name</label>
+                <input type="text" id="category_name" name="category_name" required maxlength="100"
+                    placeholder="Enter category name" />
+            </div>
+
+            <button type="submit">Create Category</button>
+
+        </form>
+    </section>
+
+    <%- include('partials/footer') %>

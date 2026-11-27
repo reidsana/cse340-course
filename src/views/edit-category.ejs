@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+    <section class="page-hero">
+        <h1>
+            <%= title %>
+        </h1>
+        <p>Update the category name.</p>
+    </section>
+
+    <section class="projects-section">
+        <form action="/edit-category/<%= category.category_id %>" method="POST">
+
+            <div class="form-group">
+                <label for="category_name">Category Name</label>
+                <input type="text" id="category_name" name="category_name" value="<%= category.category_name %>"
+                    required maxlength="100" />
+            </div>
+
+            <button type="submit">Update Category</button>
+
+            <a href="/category/<%= category.category_id %>">Cancel</a>
+
+        </form>
+    </section>
+
+    <%- include('partials/footer') %>

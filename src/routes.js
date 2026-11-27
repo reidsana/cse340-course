@@ -24,7 +24,12 @@ import {
 import {
     showCategoryDetailsPage,
     showAssignCategoriesForm,
-    processAssignCategoriesForm
+    processAssignCategoriesForm,
+    showNewCategoryForm,
+    processNewCategoryForm,
+    showEditCategoryForm,
+    processEditCategoryForm,
+    categoryValidation
 } from './controllers/categories.js';
 
 const router = express.Router();
@@ -44,6 +49,24 @@ router.get('/project/:id', showProjectDetailsPage);
 
 // Category details
 router.get('/category/:id', showCategoryDetailsPage);
+
+// Routes for creating a new category
+router.get('/new-category', showNewCategoryForm);
+
+router.post(
+    '/new-category',
+    categoryValidation,
+    processNewCategoryForm
+);
+
+// Routes for editing an existing category
+router.get('/edit-category/:id', showEditCategoryForm);
+
+router.post(
+    '/edit-category/:id',
+    categoryValidation,
+    processEditCategoryForm
+);
 
 // Route for new organization page
 router.get('/new-organization', showNewOrganizationForm);

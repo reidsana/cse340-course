@@ -1,3 +1,4 @@
+
 import db from './db.js';
 
 export const getAllCategories = async () => {
@@ -84,3 +85,51 @@ export const updateCategoryAssignments = async (projectId, categoryIds) => {
         await assignCategoryToProject(projectId, categoryId);
     }
 };
+
+// Create a new category
+export const createCategory = async (categoryName) => {
+    const sql = `
+        INSERT INTO category (category_name)
+        VALUES ($1)
+        RETURNING category_id;
+    `;
+
+    const result = await db.query(sql, [categoryName]);
+
+    if (result.rows.length === 0) {
+        throw new Error('Failed to create category');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log(
+            'Created new category with ID:',
+            result.rows[0].category_id
+        );
+    }
+
+    return result.rows[0].category_id;
+};
+
+// Update an existing category
+export const updateCategory = async (categoryId, categoryName) => {
+    const sql = `
+        UPDATE category
+        SET category_name = $1
+        WHERE category_id = $2
+        RETURNING category_id;
+    `;
+
+    const result = await db.query(sql, [categoryName, categoryId]);
+
+    if (result.rows.length === 0) {
+        throw new Error('Category not found');
+    }
+
+    if (process.env.ENABLE_SQL_LOGGING === 'true') {
+        console.log('Updated category with ID:', categoryId);
+    }
+
+    return result.rows[0].category_id;
+};
+
+
