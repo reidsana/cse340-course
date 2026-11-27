@@ -38,26 +38,30 @@
                 </a>
             </p>
 
-                        <p>
+            <p>
                 <strong>Categories:</strong>
 
-                <% if (categories && categories.length > 0) { %>
+                <% if (categories && categories.length> 0) { %>
 
-                    <% categories.forEach(category => { %>
+                    <% categories.forEach(category=> { %>
 
                         <a href="/category/<%= category.category_id %>">
                             <%= category.category_name %>
                         </a>
 
-                    <% }); %>
+                        <% }); %>
 
-                <% } else { %>
+                            <% } else { %>
 
-                    No categories assigned.
+                                No categories assigned.
 
-                <% } %>
+                                <% } %>
             </p>
-
+            <p>
+                <a href="/assign-categories/<%= project.project_id %>">
+                    Edit Categories
+                </a>
+            </p>
         </article>
 
     </section>

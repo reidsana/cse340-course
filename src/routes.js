@@ -16,11 +16,15 @@ import {
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
-    projectValidation
+    projectValidation,
+    showEditProjectForm,
+    processEditProjectForm
 } from './controllers/projects.js';
 
 import {
-    showCategoryDetailsPage
+    showCategoryDetailsPage,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm
 } from './controllers/categories.js';
 
 const router = express.Router();
@@ -62,4 +66,25 @@ router.get('/new-project', showNewProjectForm);
 
 // Route to handle new service project form submission
 router.post('/new-project', projectValidation, processNewProjectForm);
+
+// Routes to handle assigning categories to a project
+router.get(
+    '/assign-categories/:projectId',
+    showAssignCategoriesForm
+);
+
+router.post(
+    '/assign-categories/:projectId',
+    processAssignCategoriesForm
+);
+
+// Routes to edit an existing service project
+router.get('/edit-project/:id', showEditProjectForm);
+
+router.post(
+    '/edit-project/:id',
+    projectValidation,
+    processEditProjectForm
+);
+
 export default router;
